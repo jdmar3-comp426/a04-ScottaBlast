@@ -13,7 +13,7 @@ app.use(express.json());
 var HTTP_PORT = 5000;
 // Start server
 app.listen(HTTP_PORT, () => {
-    //console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
+    console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
 });
 // READ (HTTP method GET) at root endpoint /app/
 app.get("/app/", (req, res, next) => {
@@ -25,8 +25,7 @@ app.get("/app/", (req, res, next) => {
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new", (req, res) => { //may be /app/new/user
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES (?, ?)").run(req.body.user, md5(req.body.pass));
-	res.json({"message": stmt.changes + " record created: ID: " + stmt.lastInsertRowid + " (201)"})
-	.json(stmt);
+	res.status(201).json(stmt);
 	
 });
 //GET ALL
