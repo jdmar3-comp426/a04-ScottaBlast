@@ -45,7 +45,7 @@ app.get("/app/user/:id", (req, res) => {
 
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user:id", (req, res) => {
-	const stmt = db.prepare("UPDATE userinfo SET user = COALESCE(?, user), pass = COALESCE(?, pass) WHERE id = ?").run(req.body.user, req.body.user, req.params.id);
+	const stmt = db.prepare("UPDATE userinfo SET user = COALESCE(?, user), pass = COALESCE(?, pass) WHERE id = ?").run(req.body.user, req.body.pass, req.params.id);
 	res.status(200);
 	res.json({"message":stmt.changes + " record updated: ID " + stmt.lastInsertRowid + " (200)"});
 	res.json(stmt);
